@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stevlu.mapper.DepartmentMapper">
+    <select id="addDep" statementType="CALLABLE">
+        call tkt_addDep(#{dep.name,mode=IN,jdbcType=VARCHAR},#{dep.parentId,mode=IN,jdbcType=INTEGER},#{dep.enabled,mode=IN,jdbcType=INTEGER},#{dep.result,mode=OUT,jdbcType=INTEGER})
+    </select>
+    <select id="deleteDep" statementType="CALLABLE">
+        call tkt_deleteDep(#{dep.id,mode=IN,jdbcType=INTEGER},#{dep.result,mode=OUT,jdbcType=INTEGER})
+    </select>
+    <resultMap id="BaseResultMap" type="com.stevlu.bean.Department">
+        <id property="id" column="id"/>
+        <result column="name" property="name"/>
+        <result column="parentId" property="parentId"/>
+        <result column="isParent" property="isParent"/>
+        <collection property="children" ofType="com.stevlu.bean.Department" select="com.stevlu.mapper.DepartmentMapper.getDepByPid" column="id">
+        </collection>
+    </resultMap>
+    <select id="getDepByPid" resultMap="BaseResultMap">
+        select d1.*from tkt_department d1 where d1.parentId=#{pid} AND d1.enabled=1
+    </select>
+    <select id="getAllDeps" resultType="com.stevlu.bean.Department">
+        select * from tkt_department WHERE enabled=1
+    </select>
+</mapper>

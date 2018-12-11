@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stevlu.mapper.SysMsgMapper">
+    <insert id="sendMsg" parameterType="com.stevlu.bean.MsgContent">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            select (max(tkt_msgcontent.id) + 1) a from tkt_msgcontent
+        </selectKey>
+        INSERT INTO tkt_msgcontent(id,message,title) VALUES (#{id},#{message},#{title})
+    </insert>
+    <insert id="addMsg2AllHr">
+        INSERT INTO tkt_sysmsg(id,mid,hrid) select SEQ_TKT_SYSMSG_NEWID.NEXTVAL, tmp.* from (
+        <foreach collection="hrs" item="hr" separator="union all">
+            select #{mid},#{hr.id} from dual
+        </foreach>
+        ) tmp
+    </insert>
+    <select id="getSysMsg" resultMap="BaseResultMap">
+        select sm.*,mc.message,mc.title,mc.createDate,mc.id as mcid from tkt_sysmsg sm,tkt_msgcontent mc where sm.mid=mc.id and sm.hrid=#{hrid} order by mc.createDate desc
+    </select>
+    <resultMap id="BaseResultMap" type="com.stevlu.bean.SysMsg">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="mid" property="mid" jdbcType="BIGINT" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="hrid" property="hrid" jdbcType="BIGINT" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <association property="msgContent" javaType="com.stevlu.bean.MsgContent">
+            <id column="mcid" property="id" jdbcType="BIGINT" />
+            <result column="title" property="title" jdbcType="VARCHAR" />
+            <result column="message" property="message" jdbcType="VARCHAR" />
+            <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+        </association>
+    </resultMap>
+    <update id="markRead">
+        UPDATE tkt_sysmsg set state=1 WHERE hrid=#{hrid}
+        <if test="flag!=-1">
+            AND mid=#{flag}
+        </if>
+    </update>
+</mapper>

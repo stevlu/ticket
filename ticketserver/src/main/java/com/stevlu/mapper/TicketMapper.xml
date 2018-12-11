@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stevlu.mapper.TicketMapper">
+    <select id="getAllDeclarations" resultType="com.stevlu.bean.Declaration">
+        select declaration_id, description, flag from log_declaration where flag = 1
+    </select>
+    <select id="getAllSources" resultType="com.stevlu.bean.Source">
+        select source_id, description, flag from log_source where flag = 1
+    </select>
+    <select id="getAllPriorities" resultType="com.stevlu.bean.Priority">
+        select priority_id, description, flag from log_priority where flag = 1
+    </select>
+    <select id="getAllServers" resultType="com.stevlu.bean.Server">
+        select server_id, description, flag from log_server where flag = 1
+    </select>
+    <select id="getAllQuestiontypes" resultType="com.stevlu.bean.Questiontype">
+        select question_id, description, orderno, flag from log_questiontype where flag = 1
+    </select>
+    <select id="getAllSubclasses" resultType="com.stevlu.bean.Subclass">
+        select subclass_id, questionid, description, orderno, flag from log_subclass where flag = 1
+        <if test="questiontypeId!=null and questiontypeId!=''">
+            and questionid = #{questiontypeId}
+        </if>
+    </select>
+    <select id="getAllAffects" resultType="com.stevlu.bean.Affect">
+        select affect_id, description, flag from log_affect where flag = 1
+    </select>
+    <select id="getAllAssignees" resultType="com.stevlu.bean.Hr">
+        select id, name, enabled from tkt_hr where enabled = 1 and name != '管理员'
+    </select>
+    <select id="getChildClass" resultType="com.stevlu.bean.Subclass">
+        select subclass_id, questionid, description, orderno, flag from log_subclass where flag = 1 and questionid = #{questiontypeId}
+    </select>
+    <select id="getAllEmailGroups" resultType="com.stevlu.bean.EmailGroup">
+        select group_id, description, email, flag from tkt_emailgroup where flag = 1
+    </select>
+    <insert id="addTicket" parameterType="com.stevlu.bean.Ticket">
+        INSERT INTO tkt_tabcynjlog (name, titleLevel) values (#{jobLevel.name}, #{jobLevel.titleLevel})
+    </insert>
+    <resultMap id="BaseResultMap" type="com.stevlu.bean.Ticket">
+        <id column="logId" property="logId"/>
+        <result column="title" property="title"/>
+        <result column="describe" property="describe"/>
+        <result column="createdDate" property="createdDate"/>
+        <result column="customerName" property="customerName"/>
+        <result column="customerId" property="customerId"/>
+        <result column="mobile" property="mobile"/>
+        <result column="tel_1" property="tel"/>
+        <result column="e_mail" property="email"/>
+        <result column="vipdesc" property="vipdesc"/>
+        <result column="status" property="status"/>
+        <result column="vip" property="vipId"/>
+        <result column="declaration" property="declarationId"/>
+        <result column="source" property="sourceId"/>
+        <result column="priority" property="priorityId"/>
+        <result column="server" property="serverId"/>
+        <result column="question_type1" property="questiontypeId"/>
+        <result column="question_type2" property="subclassId"/>
+        <result column="affect" property="affectId"/>
+        <result column="assignee" property="assigneeId"/>
+        <result column="emailgroup" property="groupId"/>
+        <association property="declaration" javaType="com.stevlu.bean.Declaration">
+            <id property="declaration_id" column="declaration_id"/>
+            <result property="description" column="ddescription"/>
+            <result property="flag" column="dflag"/>
+        </association>
+        <association property="source" javaType="com.stevlu.bean.Source">
+            <id property="source_id" column="source_id"/>
+            <result property="description" column="scdescription"/>
+            <result property="flag" column="scflag"/>
+        </association>
+        <association property="server" javaType="com.stevlu.bean.Server">
+            <id property="server_id" column="server_id"/>
+            <result property="description" column="sedescription"/>
+            <result property="flag" column="seflag"/>
+        </association>
+        <association property="priority" javaType="com.stevlu.bean.Priority">
+            <id property="priority_id" column="priority_id"/>
+            <result property="description" column="pdescription"/>
+            <result property="flag" column="pflag"/>
+        </association>
+        <association property="questiontype" javaType="com.stevlu.bean.Questiontype">
+            <id property="question_id" column="question_id"/>
+            <result property="description" column="qdescription"/>
+            <result property="orderno" column="qorderno"/>
+            <result property="flag" column="qflag"/>
+        </association>
+        <association property="subclass" javaType="com.stevlu.bean.Subclass">
+            <id property="subclass_id" column="subclass_id"/>
+            <result property="questionid" column="questionid"/>
+            <result property="description" column="sdescription"/>
+            <result property="orderno" column="sorderno"/>
+            <result property="flag" column="sflag"/>
+        </association>
+        <association property="affect" javaType="com.stevlu.bean.Affect">
+            <id property="affect_id" column="affect_id"/>
+            <result property="description" column="adescription"/>
+            <result property="flag" column="aflag"/>
+        </association>
+        <association property="hr" javaType="com.stevlu.bean.Hr">
+            <id property="id" column="hr_id"/>
+            <result property="name" column="hrname"/>
+            <result property="enabled" column="hrenabled"/>
+        </association>
+        <association property="emailgroup" javaType="com.stevlu.bean.EmailGroup">
+            <id property="group_id" column="group_id"/>
+            <result property="description" column="gdescription"/>
+            <result property="email" column="gemail"/>
+            <result property="flag" column="gflag"/>
+        </association>
+    </resultMap>
+    <select id="getTicketByPage" resultMap="BaseResultMap">
+        select * from (select rownum r, tkt.* from (
+	        select log.*, v.vipdesc, d.declaration_id, d.description as ddescription, d.flag as dflag,
+	        sc.source_id, sc.description as scdescription, sc.flag as scflag,
+	        p.priority_id, p.description as pdescription, p.flag as pflag,
+	        se.server_id, se.description as sedescription, se.flag as seflag,
+	        q.question_id, q.description as qdescription, q.orderno as qorderno, q.flag as qflag,
+	        s.subclass_id, s.questionid, s.description as sdescription, s.orderno as sorderno, s.flag as sflag, 
+	        a.affect_id, a.description as adescription, a.flag as aflag,
+	        hr.id as hr_id, hr.name as hrname, hr.enabled as hrenabled,
+	        g.group_id, g.description as gdescription, g.email as gemail, g.flag as gflag from
+	        tkt_tabcynjlog log left join log_declaration d on log.declaration=d.declaration_id
+	        left join c_vip v on log.vip=v.vipid left join log_source sc on log.source=sc.source_id 
+	        left join log_priority p on log.priority=p.priority_id 
+	        left join log_server se on log.server=se.server_id 
+	        left join log_questiontype q on log.question_type1 = q.question_id 
+	        left join log_subclass s on log.question_type2 = s.subclass_id 
+	        left join log_affect a on log.affect=a.affect_id 
+	        left join tkt_hr hr on log.assignee=hr.id
+	        left join tkt_emailgroup g on log.emailgroup=g.group_id
+	        where 1 = 1 
+	        <if test="keywords!=null and keywords!=''">
+                and log.logid like '%' || upper(#{keywords}) || '%'
+            </if>
+	        <if test="declarationId!=null and declarationId!=''">
+                and log.declaration=#{declarationId}
+            </if>
+            <if test="sourceId!=null and sourceId!=''">
+                and log.source=#{sourceId}
+            </if>
+            <if test="serverId!=null and serverId!=''">
+                and log.server=#{serverId}
+            </if>
+            <if test="affectId!=null and affectId!=''">
+                and log.affect=#{affectId}
+            </if>
+            <if test="priorityId!=null and priorityId!=''">
+                and log.priority=#{priorityId}
+            </if>
+            <if test="status!=null and status!=''">
+                and log.status=#{status}
+            </if>
+            <if test="assigneeId!=null and assigneeId!=''">
+                and log.assignee=#{assigneeId}
+            </if>
+            <if test="groupId!=null and groupId!=''">
+                and log.emailgroup=#{groupId}
+            </if>
+	        order by log.createddate desc
+	    ) tkt where rownum &lt;= (#{size}+#{start})) where r &gt; #{start}
+    </select>
+    <select id="getCountByKeywords" resultType="Long">
+        SELECT count(*) FROM tkt_tabcynjlog log where 1 = 1
+        <if test="keywords!=null and keywords!=''">
+            and log.logid like '%' || upper(#{keywords}) || '%'
+        </if>
+        <if test="declarationId!=null and declarationId!=''">
+            and log.declaration=#{declarationId} 
+        </if>
+        <if test="sourceId!=null and sourceId!=''">
+            and log.source=#{sourceId}
+        </if>
+        <if test="serverId!=null and serverId!=''">
+            and log.server=#{serverId}
+        </if>
+        <if test="affectId!=null and affectId!=''">
+            and log.affect=#{affectId}
+        </if>
+        <if test="priorityId!=null and priorityId!=''">
+            and log.priority=#{priorityId}
+        </if>
+        <if test="status!=null and status!=''">
+            and log.status=#{status}
+        </if>
+        <if test="assigneeId!=null and assigneeId!=''">
+            and log.assignee=#{assigneeId}
+        </if>
+        <if test="groupId!=null and groupId!=''">
+            and log.emailgroup=#{groupId}
+        </if>
+        order by log.createddate desc
+    </select>
+    <delete id="deleteTicketById">
+        DELETE FROM tkt_tabcynjlog WHERE id IN
+        <foreach collection="ids" item="id" close=")" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updateTicket">
+        UPDATE tkt_tabcynjlog
+        <set>
+	        <if test="ticket.customerName!=null and ticket.customerName!=''">
+	            customerName=#{ticket.customerName},
+	        </if>
+	        <if test="ticket.mobile!=null and ticket.mobile!=''">
+	            mobile=#{ticket.mobile},
+	        </if>
+	        <if test="ticket.tel!=null and ticket.tel!=''">
+	            tel_1=#{ticket.tel},
+	        </if>
+	        <if test="ticket.email!=null and ticket.email!= ''">
+	            e_mail=#{ticket.email},
+	        </if>
+	        <if test="ticket.customerId!=null and ticket.customerId!=''">
+	            customerId=#{ticket.customerId},
+	        </if>
+	        <if test="ticket.vipId!=null and ticket.vipId!=''">
+	            vip=#{ticket.vipId},
+	        </if>
+	        <if test="ticket.affectId!=null and ticket.affectId!=''">
+	            affect=#{ticket.affectId},
+	        </if>
+	        <if test="ticket.declarationId!=null and ticket.declarationId!=''">
+	            declaration=#{ticket.declarationId},
+	        </if>
+	        <if test="ticket.serverId!=null and ticket.serverId!=''">
+	            server=#{ticket.serverId},
+	        </if>
+	        <if test="ticket.sourceId!=null and ticket.sourceId!=''">
+	            source=#{ticket.sourceId},
+	        </if>
+	        <if test="ticket.questiontypeId!=null and ticket.questiontypeId!=''">
+	            question_type1=#{ticket.questiontypeId},
+	        </if>
+	        <if test="ticket.subclassId!=null and ticket.subclassId!=''">
+	            question_type2=#{ticket.subclassId},
+	        </if>
+	        <if test="ticket.subclassId==null or ticket.subclassId==''">
+	            question_type2='',
+	        </if>
+	        <if test="ticket.groupId!=null and ticket.groupId!=''">
+	            emailgroup=#{ticket.groupId},
+	        </if>
+	        <if test="ticket.title!=null and ticket.title!=''">
+	            title=#{ticket.title},
+	        </if>
+	        <if test="ticket.describe!=null and ticket.describe!=''">
+	            describe=to_char(sysdate,'YYYY/MM/DD HH24:MI:SS') || chr(13)||chr(10) || #{ticket.describe} || chr(13)||chr(10) || chr(13)||chr(10) || describe,
+	        </if>
+	        <if test="ticket.assigneeId!=null and ticket.assigneeId!=''">
+	            assignee=#{ticket.assigneeId},
+	        </if>
+	        <if test="ticket.status!=null and ticket.status!=''">
+	            status=#{ticket.status},
+	        </if>
+        </set>
+        WHERE logId=#{ticket.logId}
+    </update>
+    <update id="updateAssignee">
+        UPDATE tkt_tabcynjlog
+        <set>
+	        <if test="ticket.assigneeId!=null and ticket.assigneeId!=''">
+	            assignee=#{ticket.assigneeId},
+	        </if>
+	            status='Assigned'
+        </set>
+        WHERE logId=#{ticket.logId}
+    </update>
+    <update id="sendEmail">
+        UPDATE tkt_tabcynjlog
+        <set>
+	        <if test="ticket.groupId!=null and ticket.groupId!=''">
+	            emailgroup=#{ticket.groupId},
+	        </if>
+        </set>
+        WHERE logId=#{ticket.logId}
+    </update>
+</mapper>

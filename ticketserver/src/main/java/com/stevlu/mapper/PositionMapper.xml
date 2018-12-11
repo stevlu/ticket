@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stevlu.mapper.PositionMapper">
+    <insert id="addPos" parameterType="com.stevlu.bean.Position">
+        INSERT INTO tkt_position(name) values (#{pos.name})
+    </insert>
+    <select id="getPosByName" resultType="com.stevlu.bean.Position">
+        SELECT * FROM tkt_position WHERE name=#{name}
+    </select>
+    <select id="getAllPos" resultType="com.stevlu.bean.Position">
+        SELECT * FROM tkt_position WHERE enabled=1 ORDER BY id
+    </select>
+    <delete id="deletePosById">
+        DELETE FROM tkt_position WHERE id IN
+        <foreach collection="pids" item="pid" separator="," open="(" close=")">
+            #{pid}
+        </foreach>
+    </delete>
+    <update id="updatePosById">
+        UPDATE tkt_position set name=#{pos.name} WHERE id=#{pos.id}
+    </update>
+</mapper>
