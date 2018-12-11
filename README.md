@@ -1,9 +1,9 @@
 # ticket
 一个前后端分离的工单管理系统，项目采用SpringBoot+Vue+Oracle开发
 
-项目地址：[http://www.stevlu.com](http://www.stevlu.com)
+项目地址：[http://www.stevlu.com:8082](http://www.stevlu.com)
 项目根据 https://github.com/lenve/vhr 微人事开发，所做的修改是将数据库挪到Oracle上来，并尽量简化了代码，
-将登陆、权限、菜单、通知予以保留，将后台业务表除数据字典外都予以清除，力争做到简洁明快、轻量化。
+将登陆、权限、菜单、通知、邮件等公共功能予以保留，将后台业务表除数据字典外都予以清除，力争做到简洁明快、轻量化。
 
 # 技术栈
 
