@@ -33,7 +33,7 @@
           </el-form-item>
         </el-form>
       </div>
-      <div class="login-bottom"><em>Thanks to https://github.com/lenve/vhr</em></div>
+      <div class="login-bottom"><em>Thanks to https://github.com/lenve/vhr.</em></div>
     </div>
   </div>
 </template>
