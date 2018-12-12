@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.stevlu</groupId>
-	<artifactId>WebSocketServer</artifactId>
+	<artifactId>TicketServer</artifactId>
 	<version>0.1.0</version>
 	<packaging>jar</packaging>
 
-	<name>WebSocketServer</name>
-	<description>WebSocket project for Spring Boot Vue</description>
+	<name>TicketServer</name>
+	<description>Ticket project for Spring Boot Vue</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
