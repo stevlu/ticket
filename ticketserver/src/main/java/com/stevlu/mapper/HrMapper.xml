@@ -92,6 +92,42 @@
         </set>
         where id = #{id}
     </update>
+    <update id="updateHrPhone" parameterType="com.stevlu.bean.Hr">
+        update tkt_hr
+        <set>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateHrEmail" parameterType="com.stevlu.bean.Hr">
+        update tkt_hr
+        <set>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateHrUsername" parameterType="com.stevlu.bean.Hr">
+        update tkt_hr
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateHrName" parameterType="com.stevlu.bean.Hr">
+        update tkt_hr
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
     <delete id="deleteRoleByHrId" parameterType="Long">
         DELETE FROM tkt_hr_role where hrid=#{hrId}
     </delete>

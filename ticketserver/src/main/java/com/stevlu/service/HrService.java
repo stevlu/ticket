@@ -54,6 +54,22 @@ public class HrService implements UserDetailsService {
 	public int updateHrDept(Hr hr) {
 		return hrMapper.updateHrDept(hr);
 	}
+	
+	public int updateHrPhone(Hr hr) {
+		return hrMapper.updateHrPhone(hr);
+	}
+	
+	public int updateHrEmail(Hr hr) {
+		return hrMapper.updateHrEmail(hr);
+	}
+	
+	public int updateHrUsername(Hr hr) {
+		return hrMapper.updateHrUsername(hr);
+	}
+	
+	public int updateHrName(Hr hr) {
+		return hrMapper.updateHrName(hr);
+	}
 
 	public int updateHrRoles(Long hrId, Long[] rids) {
 		int i = hrMapper.deleteRoleByHrId(hrId);

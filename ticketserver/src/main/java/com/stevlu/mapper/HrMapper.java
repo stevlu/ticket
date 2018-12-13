@@ -22,6 +22,14 @@ public interface HrMapper {
 	int updateHr(Hr hr);
 
 	int updateHrDept(Hr hr);
+	
+	int updateHrPhone(Hr hr);
+	
+	int updateHrEmail(Hr hr);
+	
+	int updateHrUsername(Hr hr);
+	
+	int updateHrName(Hr hr);
 
 	int deleteRoleByHrId(Long hrId);
 

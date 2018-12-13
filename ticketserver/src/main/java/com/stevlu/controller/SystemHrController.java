@@ -49,6 +49,38 @@ public class SystemHrController {
 		}
 		return new RespBean("error", "更新失败!");
 	}
+	
+	@RequestMapping(value = "/phone", method = RequestMethod.PUT)
+	public RespBean updateHrPhone(Hr hr) {
+		if (hrService.updateHrPhone(hr) == 1) {
+			return new RespBean("success", "更新成功!");
+		}
+		return new RespBean("error", "更新失败!");
+	}
+	
+	@RequestMapping(value = "/email", method = RequestMethod.PUT)
+	public RespBean updateHrEmail(Hr hr) {
+		if (hrService.updateHrEmail(hr) == 1) {
+			return new RespBean("success", "更新成功!");
+		}
+		return new RespBean("error", "更新失败!");
+	}
+	
+	@RequestMapping(value = "/username", method = RequestMethod.PUT)
+	public RespBean updateHrUsername(Hr hr) {
+		if (hrService.updateHrUsername(hr) == 1) {
+			return new RespBean("success", "更新成功!");
+		}
+		return new RespBean("error", "更新失败!");
+	}
+	
+	@RequestMapping(value = "/name", method = RequestMethod.PUT)
+	public RespBean updateHrName(Hr hr) {
+		if (hrService.updateHrName(hr) == 1) {
+			return new RespBean("success", "更新成功!");
+		}
+		return new RespBean("error", "更新失败!");
+	}
 
 	@RequestMapping(value = "/roles", method = RequestMethod.PUT)
 	public RespBean updateHrRoles(Long hrId, Long[] rids) {
