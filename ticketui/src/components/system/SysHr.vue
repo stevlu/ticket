@@ -22,10 +22,19 @@
         <div>
           <div>
             <!--<img :src="item.userface" alt="item.name" style="width: 50px;height: 50px;border-radius: 10px">-->
-            <div><span class="user-info">用户名称:</span><span class="user-detail">{{item.username}}&nbsp;{{"("}}{{item.name}}{{")"}}</span></div>
-            <div><span class="user-info">手机号码:</span><span class="user-detail">{{item.phone}}</span></div>
-            <div><span class="user-info">电子邮件:</span><span class="user-detail">{{item.email}}</span></div>
-            <!--<div><span class="user-info">地址:{{item.address}}</span></div>-->
+            <div class="userDiv">
+              <span class="user-info">用户名称:</span>
+              <el-input v-model="item.username" @blur="usernameChange(item.username,item.id,index)" placeholder="请输入名称"></el-input>
+              <el-input v-model="item.name" @blur="nameChange(item.name,item.id,index)" placeholder="请输入名字"></el-input>
+            </div>
+            <div class="myDiv">
+              <span class="user-info">手机号码:</span>
+              <el-input v-model="item.phone" @blur="phoneChange(item.phone,item.id,index)" placeholder="请输入手机号码..."></el-input>
+            </div>
+            <div class="myDiv">
+              <span class="user-info">电子邮件:</span>
+              <el-input v-model="item.email" @blur="emailChange(item.email,item.id,index)" placeholder="请输入电子邮件..."></el-input>
+            </div>            <!--<div><span class="user-info">地址:{{item.address}}</span></div>-->
             <div class="user-info" style="display: flex;align-items: center;margin-bottom: 3px">
               用户状态:
               <el-switch
@@ -100,7 +109,6 @@
         moreBtnState:false,
         selRoles: [],
         selRolesBak: [],
-        depId: 1,
         deps: []
       }
     },
@@ -217,6 +225,82 @@
           }
         })
       },
+      phoneChange(newValue, hrId, index) {
+        var _this = this;
+        _this.cardLoading.splice(index, 1, true)
+        this.putRequest("/system/hr/phone", {
+          phone: newValue,
+          id: hrId
+        }).then(resp=> {
+          _this.cardLoading.splice(index, 1, false)
+          if (resp && resp.status == 200) {
+            var data = resp.data;
+            _this.$message({type: data.status, message: data.msg});
+            if (data.status == 'error') {
+              _this.refreshHr(hrId, index);
+            }
+          } else {
+            _this.refreshHr(hrId, index);
+          }
+        })
+      },
+      emailChange(newValue, hrId, index) {
+        var _this = this;
+        _this.cardLoading.splice(index, 1, true)
+        this.putRequest("/system/hr/email", {
+          email: newValue,
+          id: hrId
+        }).then(resp=> {
+          _this.cardLoading.splice(index, 1, false)
+          if (resp && resp.status == 200) {
+            var data = resp.data;
+            _this.$message({type: data.status, message: data.msg});
+            if (data.status == 'error') {
+              _this.refreshHr(hrId, index);
+            }
+          } else {
+            _this.refreshHr(hrId, index);
+          }
+        })
+      },
+      usernameChange(newValue, hrId, index) {
+        var _this = this;
+        _this.cardLoading.splice(index, 1, true)
+        this.putRequest("/system/hr/username", {
+          username: newValue,
+          id: hrId
+        }).then(resp=> {
+          _this.cardLoading.splice(index, 1, false)
+          if (resp && resp.status == 200) {
+            var data = resp.data;
+            _this.$message({type: data.status, message: data.msg});
+            if (data.status == 'error') {
+              _this.refreshHr(hrId, index);
+            }
+          } else {
+            _this.refreshHr(hrId, index);
+          }
+        })
+      },
+      nameChange(newValue, hrId, index) {
+        var _this = this;
+        _this.cardLoading.splice(index, 1, true)
+        this.putRequest("/system/hr/name", {
+          name: newValue,
+          id: hrId
+        }).then(resp=> {
+          _this.cardLoading.splice(index, 1, false)
+          if (resp && resp.status == 200) {
+            var data = resp.data;
+            _this.$message({type: data.status, message: data.msg});
+            if (data.status == 'error') {
+              _this.refreshHr(hrId, index);
+            }
+          } else {
+            _this.refreshHr(hrId, index);
+          }
+        })
+      },
       initCards(){
         this.fullloading = true;
         var _this = this;
@@ -283,6 +367,24 @@
     font-size: 14px;
     color:#555555;
     margin-left: 20px;
+  }
+
+  .userDiv >>> .el-input{
+    width: auto;
+    margin-left: 10px;
+  }
+  .userDiv >>> .el-input__inner {
+    width: 88px;
+    height: 28px;
+  }
+
+  .myDiv >>> .el-input{
+    width: auto;
+    margin-left: 10px;
+  }
+  .myDiv >>> .el-input__inner {
+    width: 193px;
+    height: 28px;
   }
 
   .myButtonQ {
