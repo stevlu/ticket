@@ -6,14 +6,14 @@
           <el-row :gutter="2">
             <el-col style="padding-left: 0px;padding-right: 0px" :span="16">
               <div class="bg-purple-time">
-                <el-form-item class="twoLineLabel" label-width="90px" label="工单编号:" prop="updateLogId">
+                <el-form-item class="twoLineLabel" label-width="100px" label="工单编号:" prop="updateLogId">
                   <el-input class="twoLineInput" v-model="updateLogId" :disabled="true" placeholder="请输入新的工单编号..."></el-input>
                 </el-form-item>
               </div>
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple-time">
-                <el-form-item class="twoLineLabel" label-width="90px" label="当前时间:" prop="currentTime">
+                <el-form-item class="twoLineLabel" label-width="100px" label="当前时间:" prop="currentTime">
                   <template>
                   <span style="margin-left:18px;color:#409efe;font-size: 14px;font-weight: normal;">
                     <slot>
@@ -28,14 +28,14 @@
           <el-row :gutter="2">
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple-time">
-                <el-form-item class="twoLineLabel" label-width="90px" label="开始时间:" prop="createdDate">
+                <el-form-item class="twoLineLabel" label-width="100px" label="开始时间:" prop="createdDate">
                   <el-input class="twoLineInput" v-model="createdDate" placeholder="开始时间..." :disabled="true"></el-input>
                 </el-form-item>
               </div>
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple-time">
-                <el-form-item class="twoLineLabel" label-width="90px" label="优先级:" prop="priorityId">
+                <el-form-item class="twoLineLabel" label-width="100px" label="优先级:" prop="priorityId">
                   <el-select class="twoLineInput" v-model="ticket.priorityId" style="width: 100%" placeholder="请选择优先级" :disabled="true">
                     <el-option
                       v-for="item in priorities"
@@ -49,7 +49,7 @@
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple-time">
-                <el-form-item class="twoLineLabel" label-width="90px" label="剩余时间:" prop="pendingTime">
+                <el-form-item class="twoLineLabel" label-width="100px" label="剩余时间:" prop="pendingTime">
                   <template>
                   <span :endTime="endTime" :callback="callback" :endText="endText"
                         style="margin-left:18px;color:#409efe;font-size: 14px;font-weight: normal;">
@@ -65,21 +65,21 @@
           <el-row :gutter="2">
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="申报人:" prop="customerName">
+                <el-form-item class="sixLineLabel" label-width="100px" label="申报人:" prop="customerName">
                   <el-input class="sixLineInput" v-model="customerName" placeholder="申报人..."></el-input>
                 </el-form-item>
               </div>
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="申报人手机:" prop="mobile">
+                <el-form-item class="sixLineLabel" label-width="100px" label="申报人手机:" prop="mobile">
                   <el-input class="sixLineInput" v-model="mobile" placeholder="申报人手机..."></el-input>
                 </el-form-item>
               </div>
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="申报人座机:" prop="tel">
+                <el-form-item class="sixLineLabel" label-width="100px" label="申报人座机:" prop="tel">
                   <el-input class="sixLineInput" v-model="tel" placeholder="申报人座机..."></el-input>
                 </el-form-item>
               </div>
@@ -88,21 +88,21 @@
           <el-row :gutter="2">
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="申报人邮箱:" prop="email">
+                <el-form-item class="sixLineLabel" label-width="100px" label="申报人邮箱:" prop="email">
                   <el-input class="sixLineInput" v-model="email" placeholder="申报人邮箱..."></el-input>
                 </el-form-item>
               </div>
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="申报人组织:" prop="customerId">
+                <el-form-item class="sixLineLabel" label-width="100px" label="申报人组织:" prop="customerId">
                   <el-input class="sixLineInput" v-model="customerId" placeholder="申报人组织..."></el-input>
                 </el-form-item>
               </div>
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="VIP:" prop="vipId">
+                <el-form-item class="sixLineLabel" label-width="100px" label="VIP:" prop="vipId">
                   <el-select class="sixLineInput" v-model="ticket.vipId" style="width: 100%" placeholder="VIP">
                     <el-option
                       v-for="item in vips"
@@ -118,7 +118,7 @@
           <el-row :gutter="2">
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="影响范围:" prop="affectId">
+                <el-form-item class="sixLineLabel" label-width="100px" label="影响范围:" prop="affectId">
                   <el-select class="sixLineInput" v-model="ticket.affectId" filterable style="width: 100%" placeholder="请选择影响范围">
                     <el-option
                       v-for="item in affects"
@@ -132,7 +132,7 @@
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="申报形式:" prop="declarationId">
+                <el-form-item class="sixLineLabel" label-width="100px" label="申报形式:" prop="declarationId">
                   <el-select class="sixLineInput" v-model="ticket.declarationId" filterable style="width: 100%" placeholder="请选择申报形式">
                     <el-option
                       v-for="item in declarations"
@@ -146,7 +146,7 @@
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="服务分类:" prop="serverId">
+                <el-form-item class="sixLineLabel" label-width="100px" label="服务分类:" prop="serverId">
                   <el-select class="sixLineInput" v-model="ticket.serverId" filterable style="width: 100%" placeholder="请选择服务分类">
                     <el-option
                       v-for="item in servers"
@@ -162,7 +162,7 @@
           <el-row :gutter="2">
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="来源分类:" prop="sourceId">
+                <el-form-item class="sixLineLabel" label-width="100px" label="来源分类:" prop="sourceId">
                   <el-select class="sixLineInput" v-model="ticket.sourceId" filterable style="width: 100%" placeholder="请选择来源分类">
                     <el-option
                       v-for="item in sources"
@@ -176,7 +176,7 @@
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="问题分类:" prop="questiontypeId">
+                <el-form-item class="sixLineLabel" label-width="100px" label="问题分类:" prop="questiontypeId">
                   <el-select class="sixLineInput" v-model="ticket.questiontypeId" filterable style="width: 100%" placeholder="请选择问题分类"
                              @change="getChildClass()">
                     <el-option
@@ -191,7 +191,7 @@
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple">
-                <el-form-item class="sixLineLabel" label-width="90px" label="问题子类:" prop="subclassId">
+                <el-form-item class="sixLineLabel" label-width="100px" label="问题子类:" prop="subclassId">
                   <el-select class="sixLineInput" v-model="ticket.subclassId" filterable style="width: 100%" placeholder="请选择问题子类">
                     <el-option
                       v-for="item in subclasses"
@@ -207,7 +207,7 @@
           <el-row :gutter="2">
             <el-col style="padding-left: 0px;padding-right: 0px" :span="24">
               <div class="bg-purple-light">
-                <el-form-item class="twoLineLabel" label-width="90px" label="事件标题:" prop="title">
+                <el-form-item class="twoLineLabel" label-width="100px" label="事件标题:" prop="title">
                   <el-input class="twoLineInput" v-model="title" style="width:100%" placeholder="事件标题..."></el-input>
                 </el-form-item>
               </div>
@@ -226,7 +226,7 @@
                   <div class="divhis">
                     {{ describehis }}
                   </div>
-                  <el-form-item class="twoLineLabel" label-width="90px" label="事件历史:" slot="reference" prop="describehis">
+                  <el-form-item class="twoLineLabel" label-width="100px" label="事件历史:" slot="reference" prop="describehis">
                     <el-input class="twoLineInput" v-model="describehis" ref="describehis" v-bind:readonly="textReadonly"
                               style="width:100%;color: #7f8aa0; font-size: 13px;" type="textarea" :rows="5" :autosize="{minRows: 5, maxRows: 5}"
                               placeholder="">
@@ -239,7 +239,7 @@
           <el-row :gutter="2">
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple-light">
-                <el-form-item class="twoLineLabel" label-width="90px" label="事件转发:" prop="groupId">
+                <el-form-item class="twoLineLabel" label-width="100px" label="事件转发:" prop="groupId">
                   <el-select class="twoLineInput" v-model="ticket.groupId" filterable style="width: 100%" placeholder="请选择转发分类"
                              @change="getGroupEmail()">
                     <el-option
@@ -254,7 +254,7 @@
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple-light">
-                <el-form-item class="twoLineLabel" label-width="90px" label="转发地址:" prop="gemail">
+                <el-form-item class="twoLineLabel" label-width="100px" label="转发地址:" prop="gemail">
                   <el-input class="twoLineInput" v-model="gemail" placeholder="转发地址..." v-bind:readonly="textReadonly"></el-input>
                 </el-form-item>
               </div>
@@ -275,7 +275,7 @@
           <el-row :gutter="2">
             <el-col style="height: 76px;padding-left: 0px;padding-right: 0px;" :span="24">
               <div class="bg-purple-light">
-                <el-form-item class="twoLineLabel" label-width="90px" label="事件处理:" prop="describe">
+                <el-form-item class="twoLineLabel" label-width="100px" label="事件处理:" prop="describe">
                   <el-input class="twoLineInput" autofocus v-model="describe" style="width:100%;color: #7f8aa0; font-size: 13px;" type="textarea" :rows="5"
                             :autosize="{minRows: 5, maxRows: 5}" placeholder="请输入处理内容...">
                   </el-input>
@@ -286,7 +286,7 @@
           <el-row :gutter="2">
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple-light">
-                <el-form-item class="twoLineLabel" label-width="90px" label="工单状态:" prop="status">
+                <el-form-item class="twoLineLabel" label-width="100px" label="工单状态:" prop="status">
                   <el-select class="twoLineInput" v-model="status" style="width: 100%" :disabled="statusDisabled" placeholder="工单状态"
                              @change="handleStatusSwitch">
                     <el-option
@@ -302,7 +302,7 @@
             </el-col>
             <el-col style="padding-left: 0px;padding-right: 0px" :span="8">
               <div class="bg-purple-light">
-                <el-form-item class="twoLineLabel" label-width="90px" label="责任人:" prop="assigneeId">
+                <el-form-item class="twoLineLabel" label-width="100px" label="责任人:" prop="assigneeId">
                   <el-select class="twoLineInput" v-model="ticket.assigneeId" filterable :disabled="assigneeDisabled" style="width: 100%"
                              placeholder="请选择责任人">
                     <el-option
