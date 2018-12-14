@@ -38,6 +38,9 @@ public class TicketBasicController {
 		map.put("affects", ticketService.getAllAffects());
 		map.put("assignees", ticketService.getAllAssignees());
 		map.put("emailgroups", ticketService.getAllEmailGroups());
+		if ("0".equals(questiontypeId)) {
+			map.put("updateLogId", ticketService.getMaxLogId());
+		}
 		return map;
 	}
 
@@ -66,6 +69,14 @@ public class TicketBasicController {
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	public RespBean updateTicket(Ticket ticket) {
 		if (ticketService.updateTicket(ticket) == 1) {
+			return new RespBean("success", "修改成功!");
+		}
+		return new RespBean("error", "修改失败!");
+	}
+	
+	@RequestMapping(value = "/insert", method = RequestMethod.PUT)
+	public RespBean insertTicket(Ticket ticket) {
+		if (ticketService.insertTicket(ticket) == 1) {
 			return new RespBean("success", "修改成功!");
 		}
 		return new RespBean("error", "修改失败!");

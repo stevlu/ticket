@@ -36,8 +36,14 @@
     <select id="getAllEmailGroups" resultType="com.stevlu.bean.EmailGroup">
         select group_id, description, email, flag from tkt_emailgroup where flag = 1
     </select>
-    <insert id="addTicket" parameterType="com.stevlu.bean.Ticket">
-        INSERT INTO tkt_tabcynjlog (name, titleLevel) values (#{jobLevel.name}, #{jobLevel.titleLevel})
+    <select id="getMaxLogId" resultType="String">
+        select 'SR' || to_char(sysdate, 'YYMMDD') || to_char(max(substr(logid, 9, 14)) + 1, 'fm099999') from tkt_tabcynjlog t
+    </select>
+    <insert id="insertTicket" parameterType="com.stevlu.bean.Ticket">
+        INSERT INTO tkt_tabcynjlog 
+        (logId, customerName, mobile, tel_1, e_mail, customerId, vip, priority, affect, declaration, server, source, question_type1, question_type2, emailgroup, title, describe, assignee, status, createddate) 
+        values 
+        (#{ticket.logId}, #{ticket.customerName}, #{ticket.mobile}, #{ticket.tel}, #{ticket.email}, #{ticket.customerId}, #{ticket.vipId}, #{ticket.priorityId}, #{ticket.affectId}, #{ticket.declarationId}, #{ticket.serverId}, #{ticket.sourceId}, #{ticket.questiontypeId}, #{ticket.subclassId}, #{ticket.groupId}, #{ticket.title}, to_char(sysdate,'YYYY/MM/DD HH24:MI:SS') || chr(13)||chr(10) || #{ticket.describe} || chr(13)||chr(10), #{ticket.assigneeId}, #{ticket.status}, sysdate)
     </insert>
     <resultMap id="BaseResultMap" type="com.stevlu.bean.Ticket">
         <id column="logId" property="logId"/>

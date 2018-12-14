@@ -39,6 +39,8 @@ public interface TicketMapper {
 	List<Subclass> getChildClass(@Param("questiontypeId") String questiontypeId);
 
 	List<EmailGroup> getAllEmailGroups();
+	
+	String getMaxLogId();
 
 	int addTicket(@Param("ticket") Ticket ticket);
 
@@ -56,6 +58,8 @@ public interface TicketMapper {
 	int deleteTicketById(@Param("ids") String[] ids);
 
 	int updateTicket(@Param("ticket") Ticket ticket);
+	
+	int insertTicket(@Param("ticket") Ticket ticket);
 
 	int updateAssignee(@Param("ticket") Ticket ticket);
 

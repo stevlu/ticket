@@ -68,6 +68,10 @@ public class TicketService {
 		return ticketMapper.getAllEmailGroups();
 	}
 
+	public String getMaxLogId() {
+		return ticketMapper.getMaxLogId();
+	}
+	
 	public int addTicket(Ticket ticket) {
 		return ticketMapper.addTicket(ticket);
 	}
@@ -97,6 +101,10 @@ public class TicketService {
 
 	public int updateTicket(Ticket ticket) {
 		return ticketMapper.updateTicket(ticket);
+	}
+	
+	public int insertTicket(Ticket ticket) {
+		return ticketMapper.insertTicket(ticket);
 	}
 
 	public int updateAssignee(Ticket ticket) {
