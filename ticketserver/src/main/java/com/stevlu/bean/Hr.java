@@ -127,7 +127,6 @@ public class Hr implements UserDetails {
 		return authorities;
 	}
 
-	@JsonIgnore
 	@Override
 	public String getPassword() {
 		return password;

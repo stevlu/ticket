@@ -106,5 +106,16 @@ public class SystemHrController {
 		}
 		return new RespBean("error", "注册失败!");
 	}
+	
+	@RequestMapping(value = "/updatep", method = RequestMethod.PUT)
+	public RespBean hrUpdatep(String username, String oldPassword, String newPassword, String encodedPassword) {
+		int i = hrService.hrUpdatep(username, oldPassword, newPassword, encodedPassword);
+		if (i == -1) {
+			return new RespBean("error", "旧密码输入错误!");
+		} else if (i == 1) {
+			return new RespBean("success", "修改成功，请重新登陆!");
+		}
+		return new RespBean("error", "修改失败!");
+	}
 
 }

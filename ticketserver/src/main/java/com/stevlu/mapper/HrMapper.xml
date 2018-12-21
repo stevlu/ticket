@@ -35,6 +35,15 @@
     <insert id="hrReg">
         INSERT INTO tkt_hr set username=#{username},password=#{password}
     </insert>
+    <update id="hrUpdatep" parameterType="com.stevlu.bean.Hr">
+        update tkt_hr
+        <set>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where username = #{username}
+    </update>
     <select id="getHrsByKeywords" resultMap="eagerLoadRoles">
         select h.*, r.id as rid, r.name as rname, r.nameZh as rnameZh from tkt_hr h
             left join tkt_hr_role h_r on h.id = h_r.hrid
