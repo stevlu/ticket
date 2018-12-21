@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Chat from '@/components/chat/Chat'
+import SysPwd from '@/components/system/SysPwd'
 import TktDetail from '@/components/ticket/TktDetail'
 
 Vue.use(Router)
@@ -28,6 +29,16 @@ export default new Router({
           path: '/chat',
           name: '消息',
           component: Chat,
+          hidden: true,
+          meta: {
+            keepAlive: false,
+            requireAuth: true
+          }
+        },
+        {
+          path: '/pwd',
+          name: '修改密码',
+          component: SysPwd,
           hidden: true,
           meta: {
             keepAlive: false,

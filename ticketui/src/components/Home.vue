@@ -14,10 +14,11 @@
               {{user.name}}
             </span>
             <el-dropdown-menu slot="dropdown">
-<!--              <el-dropdown-item>个人中心</el-dropdown-item>
-              <el-dropdown-item>设置</el-dropdown-item>
-              <el-dropdown-item command="logout" divided>注销</el-dropdown-item>-->
-              <el-dropdown-item command="logout">注销</el-dropdown-item>
+              <!--<el-dropdown-item>个人中心</el-dropdown-item>-->
+              <el-dropdown-item :disabled="userDisabled">修改密码</el-dropdown-item>
+              <el-dropdown-item command="logout" divided>注&nbsp;&nbsp;销</el-dropdown-item>
+              <el-dropdown-item command="updatepwd" :disabled="userDisabled">修改密码</el-dropdown-item>
+              <el-dropdown-item command="logout" divided>注销</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -75,7 +76,7 @@
             if (msg.state == 0) {
               isDot = true;
             }
-          })
+          });
           _this.$store.commit('toggleNFDot', isDot);
         })
       },
@@ -112,6 +113,9 @@
               message: '取消'
             });
           });
+        }
+        if (cmd == 'updatepwd') {
+          _this.$router.push({path: '/pwd'});
         }
       }
     },
