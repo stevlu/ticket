@@ -15,8 +15,6 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <!--<el-dropdown-item>个人中心</el-dropdown-item>-->
-              <el-dropdown-item :disabled="userDisabled">修改密码</el-dropdown-item>
-              <el-dropdown-item command="logout" divided>注&nbsp;&nbsp;销</el-dropdown-item>
               <el-dropdown-item command="updatepwd" :disabled="userDisabled">修改密码</el-dropdown-item>
               <el-dropdown-item command="logout" divided>注销</el-dropdown-item>
             </el-dropdown-menu>
@@ -66,6 +64,7 @@
       //this.devMsg();
       this.loadNF();
       //this.$ELEMENT.size = "mini";
+      this.userDisabled = this.user.username === 'admin';
     },
     methods: {
       loadNF() {
